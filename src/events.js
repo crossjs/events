@@ -16,7 +16,6 @@ var $ = require('$');
  * @constructor
  */
 var Events = function () {
-  this.__eventList = {};
 };
 
 Events.prototype = {
@@ -24,12 +23,12 @@ Events.prototype = {
   /**
    * 绑定事件，暂不支持命名空间
    * @method on
-   * @param {String} event 事件名
-   * @param {Function} callback 绑定回调函数
+   * @param {String|Object} event 事件名或哈希对
+   * @param {Function} [callback] 绑定回调函数
    * @return {Object} 当前实例
    */
   on: function (event, callback) {
-    var eventList = this.__eventList,
+    var events = this.__events || (this.__events = {}),
       eventObject = {};
     if ($.isPlainObject(event)) {
       eventObject = event;
@@ -37,10 +36,10 @@ Events.prototype = {
       eventObject[event] = callback;
     }
     $.each(eventObject, function (event, callback) {
-      if (eventList[event]) {
-        eventList[event].push(callback);
+      if (events[event]) {
+        events[event].push(callback);
       } else {
-        eventList[event] = [callback];
+        events[event] = [callback];
       }
     });
     return this;
@@ -50,20 +49,24 @@ Events.prototype = {
    * 解除绑定的事件
    * @method off
    * @param {String} event 事件名
-   * @param {Function} callback 绑定回调函数
+   * @param {Function} [callback] 绑定回调函数
    * @return {Object} 当前实例
    */
   off: function (event, callback) {
-    var eventList = this.__eventList;
-    if (eventList[event]) {
-      if (typeof callback === 'function') {
-        $.each(eventList[event], function (i, n) {
-          if (n === callback) {
-            eventList[event].splice(i, 1);
-          }
-        });
+    var events = this.__events;
+    if (events) {
+      if (event && events[event]) {
+        if (typeof callback === 'function') {
+          $.each(events[event], function (i, n) {
+            if (n === callback) {
+              events[event].splice(i, 1);
+            }
+          });
+        } else {
+          delete events[event];
+        }
       } else {
-        delete eventList[event];
+        delete this.__events;
       }
     }
     return this;
@@ -76,12 +79,12 @@ Events.prototype = {
    * @return {Object} 当前实例
    */
   fire: function (event) {
-    var eventList = this.__eventList,
-      ctx = this,
+    var events = this.__events,
+      context = this,
       args = arguments;
-    if (eventList[event]) {
-      $.each(eventList[event], function (i, callback) {
-        callback.apply(ctx, args);
+    if (events && events[event]) {
+      $.each(events[event], function (i, callback) {
+        callback.apply(context, args);
       });
     }
     return this;

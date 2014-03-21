@@ -8,8 +8,8 @@
 
 ##how to require
 
-1. run `spm install crossjs/events`
-1. write `require('crossjs/events/VERSION.NUMBER/events')`
+1. run `spm install pandora/events`
+1. write `require('pandora/events/VERSION.NUMBER/events')`
 
 ##how to build
 
@@ -20,4 +20,4 @@
 
 ##history
 
-- 0.1.0 - 从 `class` 中剥离出来
+- 1.0.0 - release

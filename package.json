@@ -1,6 +1,6 @@
 {
   "name": "events",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "events subcriber and publisher",
   "keywords": [ "events", "seajs", "modules" ],
   "homepage": "https://github.com/crossjs/events",
@@ -42,7 +42,7 @@
     "grunt-qunit-istanbul": "*",
     "matchdep": "*"
   },
-  "family": "crossjs",
+  "family": "pandora",
   "spm": {
     "output": [ "events.js" ],
     "alias": {

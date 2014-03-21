@@ -9,7 +9,6 @@ define(function (require, exports) {
   module('Module Events');
   test('new Events()', function() {
     notEqual( new Events(), new Events(), '' );
-    deepEqual( new Events().__eventList, {}, '' );
   });
 
   module('Module Event');
