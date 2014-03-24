@@ -30,12 +30,20 @@ module.exports = function(grunt) {
         coverage: {
           src: ['src/*.js'],
           instrumentedFiles: 'temp/',
-          htmlReport: 'report/coverage',
-          coberturaReport: 'report/',
+          lcovReport: 'report/',
           linesThresholdPct: 85
         }
       },
       all: ['test/*.html']
+    },
+
+    coveralls: {
+      options: {
+        force: true
+      },
+      all: {
+        src: 'report/*.info'
+      }
     },
 
     yuidoc: {
