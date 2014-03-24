@@ -6,52 +6,148 @@ define(function (require, exports) {
 
   QUnit.start();
 
-  module('Module Events');
-  test('new Events()', function() {
+  test('new', function() {
     notEqual( new Events(), new Events(), '' );
   });
 
-  module('Module Event');
-  test('.fire(event)', function() {
+  test('context', function() {
     var events = new Events(),
-      T = '',
-      t = '';
+      T = '';
     events.on({
       'test': function () {
-        T = this;
-        t = Array.prototype.join.call(arguments, '');
+        equal( this, events, '' );
       }
     });
-    events.fire('test', 1, 2, 3);
-    equal( T, events, '' );
-    equal( t, 'test123', '' );
-    events.off('test');
-    events.fire('test', 4, 5, 6);
-    equal( T, events, '' );
-    equal( t, 'test123', '' );
+    events.fire('test');
   });
-  test('.fire(event)', function() {
-    var events = new Events(),
-      T = '',
-      t = '';
+
+  test('arguments', function() {
+    var events = new Events();
     events.on({
-      'test': function () {
-        T = this;
-        t = Array.prototype.join.call(arguments, '');
-      }
-    }).on({
-      'test': function () {
-        T = this;
-        t += Array.prototype.join.call(arguments, '');
+      'test': function (e) {
+        deepEqual( Array.prototype.slice.call(arguments),
+          ['test', 1, 2, 3], '' );
       }
     });
     events.fire('test', 1, 2, 3);
-    equal( T, events, '' );
-    equal( t, 'test123test123', '' );
+  });
+
+  test('on(event, callback)', function() {
+    var events = new Events();
+    events
+      .on('test', function (e, a) {
+        equal( a, 1, '' );
+      })
+      .on('test2 test3', function (e, a) {
+        equal( a, 2, '' );
+      });
+    events.fire('test', 1);
+    events.fire('test2', 2);
+    events.fire('test3', 2);
+  });
+
+  test('on(object)', function() {
+    var events = new Events();
+    events
+      .on({
+        'test': function (e, a) {
+          equal( a, 1, '' );
+        }
+      }).on({
+        'test test2': function (e, a) {
+          equal( a, 1, '' );
+        }
+      });
+    events.fire('test', 1);
+    events.fire('test2', 1);
+  });
+
+  test('off(event)', function() {
+    var events = new Events();
+    events
+      .on('test', function (e, a) {
+        this.a = a;
+      });
+    events.fire('test', 1);
     events.off('test');
-    events.fire('test', 4, 5, 6);
-    equal( T, events, '' );
-    equal( t, 'test123test123', '' );
+    events.fire('test', 2);
+    equal( events.a, 1, '' );
+  });
+
+  test('off(event, callback)', function() {
+    var events = new Events(),
+      a = function (e, a) {
+        this.a = a;
+      },
+      a2 = function (e, a) {
+        this.a = a + a;
+      },
+      a3 = function (e, a) {
+        this.a = a + a + a;
+      };
+    events
+      .on('test', a)
+      .on('test', a2)
+      .on('test3', a3);
+    events.fire('test', 1);
+    equal( events.a, 2, '' );
+    events.off('test', a2);
+    events.fire('test', 1);
+    equal( events.a, 1, '' );
+    events.fire('test3', 1);
+    equal( events.a, 3, '' );
+    events.off('test test3');
+    events.fire('test3', 0);
+    equal( events.a, 3, '' );
+    events.fire('test', 0);
+    equal( events.a, 3, '' );
+  });
+
+  test('off()', function() {
+    var events = new Events();
+    events
+      .on('test', function (e, a) {
+        this.a = a;
+      });
+    events.fire('test', 1);
+    events.off();
+    events.fire('test', 2);
+    equal( events.a, 1, '' );
+  });
+
+  test('off()', function() {
+    var events = new Events();
+    events.off();
+    events.on('test', function () { });
+    events.off('test2');
+    ok( true, '' );
+  });
+
+  test('fire(event)', function() {
+    var events = new Events();
+    events.fire('test');
+    events
+      .on('test', function () {
+        ok( true, '' );
+      })
+      .on('test2', function () {
+        ok( true, '' );
+      });
+    events.fire('test');
+    events.fire('test test2');
+    events.fire('test3');
+  });
+
+  test('fire(event)', function() {
+    var events = new Events();
+    events
+      .on('test', function () {
+        return true;
+      })
+      .on('test', function () {
+        return false;
+      });
+    equal( events.fire('test'), false, '' );
   });
 
 });

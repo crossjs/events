@@ -9,6 +9,8 @@ define(function (require, exports, module) {
 
 var $ = require('$');
 
+var EVENT_SPLITTER = /\s+/;
+
 /**
  * 事件类
  * 实现了事件订阅与发布
@@ -21,54 +23,75 @@ var Events = function () {
 Events.prototype = {
 
   /**
-   * 绑定事件，暂不支持命名空间
+   * 绑定事件订阅
    * @method on
-   * @param {String|Object} event 事件名或哈希对
-   * @param {Function} [callback] 绑定回调函数
+   * @param {String|Object} event 事件名或哈希表
+   * @param {Function} [callback] 回调函数
    * @return {Object} 当前实例
    */
   on: function (event, callback) {
-    var events = this.__events || (this.__events = {}),
-      eventObject = {};
+    var cache = this.__events || (this.__events = {}),
+      maps = {},
+      list;
+
     if ($.isPlainObject(event)) {
-      eventObject = event;
+      maps = event;
     } else {
-      eventObject[event] = callback;
+      maps[event] = callback;
     }
-    $.each(eventObject, function (event, callback) {
-      if (events[event]) {
-        events[event].push(callback);
-      } else {
-        events[event] = [callback];
+
+    $.each(maps, function (events, callback) {
+      events = events.split(EVENT_SPLITTER);
+      while ((event = events.shift())) {
+        list = cache[event] || (cache[event] = []);
+        list.push(callback);
       }
     });
+
     return this;
   },
 
   /**
-   * 解除绑定的事件
+   * 解除事件订阅
    * @method off
    * @param {String} event 事件名
-   * @param {Function} [callback] 绑定回调函数
+   * @param {Function} [callback] 回调函数
    * @return {Object} 当前实例
    */
   off: function (event, callback) {
-    var events = this.__events;
-    if (events) {
-      if (event && events[event]) {
-        if (typeof callback === 'function') {
-          $.each(events[event], function (i, n) {
-            if (n === callback) {
-              events[event].splice(i, 1);
-            }
-          });
-        } else {
-          delete events[event];
+    var cache = this.__events,
+      events,
+      list, i;
+
+    if (!cache) {
+      return this;
+    }
+
+    if (!event) {
+      this.__events = {};
+      return this;
+    }
+
+    events = event.split(EVENT_SPLITTER);
+
+    while ((event = events.shift())) {
+      list = cache[event];
+
+      if (!list) {
+        continue;
+      }
+
+      if (!callback) {
+        delete cache[event];
+      }
+
+      for (i = list.length; i >= 0; i--) {
+        if (list[i] === callback) {
+          list.splice(i, 1);
         }
-      } else {
-        delete this.__events;
       }
     }
+
     return this;
   },
 
@@ -79,15 +102,31 @@ Events.prototype = {
    * @return {Object} 当前实例
    */
   fire: function (event) {
-    var events = this.__events,
-      context = this,
-      args = arguments;
-    if (events && events[event]) {
-      $.each(events[event], function (i, callback) {
-        callback.apply(context, args);
-      });
+    var cache = this.__events,
+      events,
+      list, i, n,
+      returned = true;
+
+    if (!(cache && event)) {
+      return;
     }
-    return this;
+
+    events = event.split(EVENT_SPLITTER);
+
+    while ((event = events.shift())) {
+
+      list = cache[event];
+
+      if (!list) {
+        continue;
+      }
+
+      for (i = 0, n = list.length; i < n; i++) {
+        returned = list[i].apply(this, arguments) && returned;
+      }
+    }
+
+    return returned;
   }
 
 };
@@ -95,6 +134,6 @@ Events.prototype = {
 // alias
 Events.prototype.emit = Events.prototype.trigger = Events.prototype.fire;
 
-return Events;
+module.exports = Events;
 
 });
