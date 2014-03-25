@@ -14,6 +14,10 @@ var EVENT_SPLITTER = /\s+/;
 /**
  * 事件类
  * 实现了事件订阅与发布
+   * @example
+   * ```
+   * var events = new Events();
+   * ```
  * @class Events
  * @constructor
  */
@@ -24,6 +28,21 @@ Events.prototype = {
 
   /**
    * 绑定事件订阅
+   * @example
+   * ```
+   * events.on('test', function (e, a) {
+   *   // e equals to 'test'
+   * });
+   * events.on('test test2', function (e, a) {
+   *   // e equals to 'test' or 'test2'
+   * });
+   * var testFunc = function (e, a) {
+   *   // e equals to 'test'
+   * };
+   * events.on({
+   *   test: testFunc
+   * });
+   * ```
    * @method on
    * @param {String|Object} event 事件名或哈希表
    * @param {Function} [callback] 回调函数
@@ -53,6 +72,12 @@ Events.prototype = {
 
   /**
    * 解除事件订阅
+   * @example
+   * ```
+   * events.off('test');
+   * events.off('test test2');
+   * events.off('test', testFunc);
+   * ```
    * @method off
    * @param {String} event 事件名
    * @param {Function} [callback] 回调函数
@@ -96,10 +121,16 @@ Events.prototype = {
   },
 
   /**
-   * 触发绑定的事件
+   * 触发绑定的事件，有别名：`emit` 与 `trigger`
+   * @example
+   * ```
+   * events.fire('test', 'blah');
+   * events.fire('test2', 'blah');
+   * events.fire('test test2', 'blah');
+   * ```
    * @method fire
    * @param {String} event 事件名
-   * @return {Object} 当前实例
+   * @return {Boolean} 如有事件函数返回值 `false`，则此方法返回值为 `false`
    */
   fire: function (event) {
     var cache = this.__events,
@@ -122,7 +153,9 @@ Events.prototype = {
       }
 
       for (i = 0, n = list.length; i < n; i++) {
-        returned = list[i].apply(this, arguments) && returned;
+        if (list[i].apply(this, arguments) === false) {
+          returned = false;
+        }
       }
     }
 

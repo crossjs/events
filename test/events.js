@@ -146,8 +146,15 @@ define(function (require, exports) {
       })
       .on('test', function () {
         return false;
+      })
+      .on('test2', function () {
+        return 1;
+      })
+      .on('test2', function () {
+        return 0;
       });
     equal( events.fire('test'), false, '' );
+    equal( events.fire('test2'), true, '' );
   });
 
 });
