@@ -1,0 +1,127 @@
+{
+    "project": {
+        "name": "events",
+        "description": "events subcriber and publisher",
+        "version": "1.0.0"
+    },
+    "files": {
+        "src\\events.js": {
+            "name": "src\\events.js",
+            "modules": {
+                "Events": 1
+            },
+            "classes": {
+                "Events": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "Events": {
+            "name": "Events",
+            "submodules": {},
+            "classes": {
+                "Events": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src\\events.js",
+            "line": 14,
+            "description": "事件"
+        }
+    },
+    "classes": {
+        "Events": {
+            "name": "Events",
+            "shortname": "Events",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "Events",
+            "namespace": "",
+            "file": "src\\events.js",
+            "line": 14,
+            "description": "事件类\n实现了事件订阅与发布",
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "src\\events.js",
+            "line": 25,
+            "description": "绑定事件订阅",
+            "itemtype": "method",
+            "name": "on",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "事件名或哈希表",
+                    "type": "String|Object"
+                },
+                {
+                    "name": "callback",
+                    "description": "回调函数",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "当前实例",
+                "type": "Object"
+            },
+            "class": "Events",
+            "module": "Events"
+        },
+        {
+            "file": "src\\events.js",
+            "line": 54,
+            "description": "解除事件订阅",
+            "itemtype": "method",
+            "name": "off",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "事件名",
+                    "type": "String"
+                },
+                {
+                    "name": "callback",
+                    "description": "回调函数",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "当前实例",
+                "type": "Object"
+            },
+            "class": "Events",
+            "module": "Events"
+        },
+        {
+            "file": "src\\events.js",
+            "line": 98,
+            "description": "触发绑定的事件",
+            "itemtype": "method",
+            "name": "fire",
+            "params": [
+                {
+                    "name": "event",
+                    "description": "事件名",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "当前实例",
+                "type": "Object"
+            },
+            "class": "Events",
+            "module": "Events"
+        }
+    ],
+    "warnings": []
+}
