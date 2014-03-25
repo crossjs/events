@@ -46,14 +46,20 @@
             "file": "src\\events.js",
             "line": 14,
             "description": "事件类\n实现了事件订阅与发布",
+            "example": [
+                "\n```\nvar events = new Events();\n```"
+            ],
             "is_constructor": 1
         }
     },
     "classitems": [
         {
             "file": "src\\events.js",
-            "line": 25,
+            "line": 29,
             "description": "绑定事件订阅",
+            "example": [
+                "\n```\nevents.on('test', function (e, a) {\n  // e equals to 'test'\n});\nevents.on('test test2', function (e, a) {\n  // e equals to 'test' or 'test2'\n});\nvar testFunc = function (e, a) {\n  // e equals to 'test'\n};\nevents.on({\n  test: testFunc\n});\n```"
+            ],
             "itemtype": "method",
             "name": "on",
             "params": [
@@ -78,8 +84,11 @@
         },
         {
             "file": "src\\events.js",
-            "line": 54,
+            "line": 73,
             "description": "解除事件订阅",
+            "example": [
+                "\n```\nevents.off('test');\nevents.off('test test2');\nevents.off('test', testFunc);\n```"
+            ],
             "itemtype": "method",
             "name": "off",
             "params": [
@@ -104,8 +113,11 @@
         },
         {
             "file": "src\\events.js",
-            "line": 98,
-            "description": "触发绑定的事件",
+            "line": 123,
+            "description": "触发绑定的事件，有别名：`emit` 与 `trigger`",
+            "example": [
+                "\n```\nevents.fire('test', 'blah');\nevents.fire('test2', 'blah');\nevents.fire('test test2', 'blah');\n```"
+            ],
             "itemtype": "method",
             "name": "fire",
             "params": [
@@ -116,8 +128,8 @@
                 }
             ],
             "return": {
-                "description": "当前实例",
-                "type": "Object"
+                "description": "如有事件函数返回值 `false`，则此方法返回值为 `false`",
+                "type": "Boolean"
             },
             "class": "Events",
             "module": "Events"

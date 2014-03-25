@@ -104,6 +104,10 @@ var EVENT_SPLITTER = /\s+/;
 /**
  * 事件类
  * 实现了事件订阅与发布
+   * @example
+   * &#x60;&#x60;&#x60;
+   * var events = new Events();
+   * &#x60;&#x60;&#x60;
  * @class Events
  * @constructor
  */
@@ -114,6 +118,21 @@ Events.prototype = {
 
   /**
    * 绑定事件订阅
+   * @example
+   * &#x60;&#x60;&#x60;
+   * events.on(&#x27;test&#x27;, function (e, a) {
+   *   // e equals to &#x27;test&#x27;
+   * });
+   * events.on(&#x27;test test2&#x27;, function (e, a) {
+   *   // e equals to &#x27;test&#x27; or &#x27;test2&#x27;
+   * });
+   * var testFunc = function (e, a) {
+   *   // e equals to &#x27;test&#x27;
+   * };
+   * events.on({
+   *   test: testFunc
+   * });
+   * &#x60;&#x60;&#x60;
    * @method on
    * @param {String|Object} event 事件名或哈希表
    * @param {Function} [callback] 回调函数
@@ -143,6 +162,12 @@ Events.prototype = {
 
   /**
    * 解除事件订阅
+   * @example
+   * &#x60;&#x60;&#x60;
+   * events.off(&#x27;test&#x27;);
+   * events.off(&#x27;test test2&#x27;);
+   * events.off(&#x27;test&#x27;, testFunc);
+   * &#x60;&#x60;&#x60;
    * @method off
    * @param {String} event 事件名
    * @param {Function} [callback] 回调函数
@@ -186,10 +211,16 @@ Events.prototype = {
   },
 
   /**
-   * 触发绑定的事件
+   * 触发绑定的事件，有别名：&#x60;emit&#x60; 与 &#x60;trigger&#x60;
+   * @example
+   * &#x60;&#x60;&#x60;
+   * events.fire(&#x27;test&#x27;, &#x27;blah&#x27;);
+   * events.fire(&#x27;test2&#x27;, &#x27;blah&#x27;);
+   * events.fire(&#x27;test test2&#x27;, &#x27;blah&#x27;);
+   * &#x60;&#x60;&#x60;
    * @method fire
    * @param {String} event 事件名
-   * @return {Object} 当前实例
+   * @return {Boolean} 如有事件函数返回值 &#x60;false&#x60;，则此方法返回值为 &#x60;false&#x60;
    */
   fire: function (event) {
     var cache = this.__events,
@@ -212,7 +243,9 @@ Events.prototype = {
       }
 
       for (i = 0, n = list.length; i &lt; n; i++) {
-        returned = list[i].apply(this, arguments) &amp;&amp; returned;
+        if (list[i].apply(this, arguments) === false) {
+          returned = false;
+        }
       }
     }
 

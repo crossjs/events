@@ -168,6 +168,15 @@
     
 
     
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>var events = new Events();</code></pre>
+
+            </div>
+        </div>
+    
 </div>
 
     </div>
@@ -251,7 +260,7 @@
 
     
         <span class="returns-inline">
-            <span class="type">Object</span>
+            <span class="type">Boolean</span>
         </span>
     
 
@@ -278,7 +287,7 @@
             
         
         
-        <a href="../files/src_events.js.html#l98"><code>src\events.js:98</code></a>
+        <a href="../files/src_events.js.html#l123"><code>src\events.js:123</code></a>
         
         </p>
 
@@ -289,7 +298,7 @@
     </div>
 
     <div class="description">
-        <p>触发绑定的事件</p>
+        <p>触发绑定的事件，有别名：<code>emit</code> 与 <code>trigger</code></p>
 
     </div>
 
@@ -326,15 +335,26 @@
             <div class="returns-description">
                 
                     
-                        <span class="type">Object</span>:
+                        <span class="type">Boolean</span>:
                     
-                    <p>当前实例</p>
+                    <p>如有事件函数返回值 <code>false</code>，则此方法返回值为 <code>false</code></p>
 
                 
             </div>
         </div>
     
 
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>events.fire(&#39;test&#39;, &#39;blah&#39;);
+events.fire(&#39;test2&#39;, &#39;blah&#39;);
+events.fire(&#39;test test2&#39;, &#39;blah&#39;);</code></pre>
+
+            </div>
+        </div>
     
 </div>
 
@@ -391,7 +411,7 @@
             
         
         
-        <a href="../files/src_events.js.html#l54"><code>src\events.js:54</code></a>
+        <a href="../files/src_events.js.html#l73"><code>src\events.js:73</code></a>
         
         </p>
 
@@ -466,6 +486,17 @@
     
 
     
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>events.off(&#39;test&#39;);
+events.off(&#39;test test2&#39;);
+events.off(&#39;test&#39;, testFunc);</code></pre>
+
+            </div>
+        </div>
+    
 </div>
 
                 
@@ -521,7 +552,7 @@
             
         
         
-        <a href="../files/src_events.js.html#l25"><code>src\events.js:25</code></a>
+        <a href="../files/src_events.js.html#l29"><code>src\events.js:29</code></a>
         
         </p>
 
@@ -595,6 +626,26 @@
         </div>
     
 
+    
+        <div class="example">
+            <h4>Example:</h4>
+
+            <div class="example-content">
+                <pre class="code prettyprint"><code>events.on(&#39;test&#39;, function (e, a) {
+  // e equals to &#39;test&#39;
+});
+events.on(&#39;test test2&#39;, function (e, a) {
+  // e equals to &#39;test&#39; or &#39;test2&#39;
+});
+var testFunc = function (e, a) {
+  // e equals to &#39;test&#39;
+};
+events.on({
+  test: testFunc
+});</code></pre>
+
+            </div>
+        </div>
     
 </div>
 
