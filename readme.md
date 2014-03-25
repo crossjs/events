@@ -2,7 +2,7 @@
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/crossjs/events/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 [![Build Status](https://api.travis-ci.org/crossjs/events.png?branch=master)](http://travis-ci.org/crossjs/events)
-[![Coverage Status](https://coveralls.io/repos/crossjs/events/badge.png?branch=master)](https://coveralls.io/r/crossjs/events)
+[![Coverage Status](https://coveralls.io/repos/crossjs/events/badge.png?branch=master)](https://coveralls.io/r/crossjs/events?branch=master)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
  > seajs module

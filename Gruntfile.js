@@ -62,7 +62,7 @@ module.exports = function(grunt) {
     clean: {
       pages: {
         files: {
-          src: ['gh-pages/**', '!.git/', '!.gitignore']
+          src: ['gh-pages/**/*', '!gh-pages/.git*']
         }
       },
       doc: {
@@ -72,12 +72,12 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          src: ['dist/**']
+          src: ['dist/**/*']
         }
       },
       build: {
         files: {
-          src: ['.build']
+          src: ['.build/**']
         }
       }
     },
