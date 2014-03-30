@@ -17,6 +17,10 @@ module.exports = function(grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
+    idleading: '<%= pkg.family %>/<%= pkg.name %>/<%= pkg.version %>/',
+
+    sea: 'sea-modules/<%= idleading %>',
+
     jshint: {
       files: ['src/*.js'],
       options: {
@@ -79,6 +83,11 @@ module.exports = function(grunt) {
         files: {
           src: ['.build/**']
         }
+      },
+      sea: {
+        files: {
+          src: ['<%= sea %>**']
+        }
       }
     },
 
@@ -96,7 +105,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'dist/',
           src: ['**'],
-          dest: 'sea-modules/<%= pkg.family %>/<%= pkg.name %>/<%= pkg.version %>/'
+          dest: '<%= sea %>'
         }]
       }
     },
@@ -104,7 +113,7 @@ module.exports = function(grunt) {
     transport: {
       options: {
         debug: true,
-        idleading: '<%= pkg.family %>/<%= pkg.name %>/<%= pkg.version %>/',
+        idleading: '<%= idleading %>',
         alias: '<%= pkg.spm.alias %>'
       },
       dist: {
