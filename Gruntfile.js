@@ -1,6 +1,6 @@
 /*
- * class
- * https://github.com/crossjs/class
+ * events
+ * https://github.com/crossjs/events
  *
  * Copyright (c) 2014 crossjs
  * Licensed under the MIT license.
@@ -84,7 +84,20 @@ module.exports = function(grunt) {
 
     copy: {
       doc: {
-        files: [ {expand: true, cwd: 'doc/', src: ['**'], dest: 'gh-pages/'} ]
+        files: [{
+          expand: true,
+          cwd: 'doc/',
+          src: ['**'],
+          dest: 'gh-pages/'
+        }]
+      },
+      sea: {
+        files: [{
+          expand: true,
+          cwd: 'dist/',
+          src: ['**'],
+          dest: 'sea-modules/<%= pkg.family %>/<%= pkg.name %>/<%= pkg.version %>/'
+        }]
       }
     },
 
@@ -99,8 +112,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'src/',
           src: ['*.js'],
-          dest: '.build/',
-          ext: '.js'
+          dest: '.build/'
         }]
       }
     },
@@ -108,16 +120,14 @@ module.exports = function(grunt) {
     concat: {
       options: {
         debug: true,
-        include: 'self',
-        paths: ['']
+        include: 'relative'
       },
       src: {
         files: [{
           expand: true,
           cwd: '.build/',
           src: ['*.js'],
-          dest: 'dist/',
-          ext: '.js'
+          dest: 'dist/'
         }]
       }
     },
@@ -141,8 +151,7 @@ module.exports = function(grunt) {
           expand: true,
           cwd: 'dist/',
           src: ['*.js', '!*-debug.js'],
-          dest: 'dist/',
-          ext: '.js'
+          dest: 'dist/'
         }]
       }
     }
@@ -151,10 +160,12 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['clean:dist', 'transport', 'concat', 'clean:build', 'uglify']);
 
+  grunt.registerTask('demo', ['copy:sea']);
+
   grunt.registerTask('doc', ['yuidoc', 'clean:pages', 'copy', 'clean:doc']);
 
   grunt.registerTask('test', ['jshint', 'qunit']);
 
-  grunt.registerTask('default', ['test', 'doc', 'build']);
+  grunt.registerTask('default', ['test', 'doc', 'build', 'demo']);
 
 };
