@@ -24,11 +24,12 @@
         ['/sea-modules/jquery', '/vendor/jquery/jquery']
       ],
       'alias': {
-        '$': 'jquery'
+        '$': 'jquery',
+        'events': 'pandora/events/1.0.0/events'
       }
     });
 
-    seajs.use(['../src/events'], function (Events) {
+    seajs.use(['events'], function (Events) {
 
       'use strict';
 
