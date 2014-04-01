@@ -132,7 +132,8 @@ ul li p {
   margin-top: 0;
 }
 
-.method .name {
+.method .name,
+.property .name {
   font-size: 110%;
 }
 
