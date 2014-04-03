@@ -5,7 +5,7 @@ node_js:
 
 install:
   - npm install -g grunt-cli
-  - npm install --save-dev
+  - npm install
 
 script:
   - grunt qunit
