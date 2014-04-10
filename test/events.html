@@ -54,7 +54,7 @@
         events.on({
           'test': function (e) {
             deepEqual( Array.prototype.slice.call(arguments),
-              ['test', 1, 2, 3], '' );
+              [{type: 'test'}, 1, 2, 3], '' );
           }
         });
         events.fire('test', 1, 2, 3);
@@ -72,6 +72,17 @@
         events.fire('test', 1);
         events.fire('test2', 2);
         events.fire('test3', 2);
+      });
+
+      test('on(\'all\', callback)', function() {
+        var events = new Events(), i = 0;
+        events
+          .on('all', function (e, a) {
+            equal( a, ++i, '' );
+          });
+        events.fire('test', 1);
+        events.fire('test2', 2);
+        events.fire('test3', 3);
       });
 
       test('on(object)', function() {
@@ -182,7 +193,7 @@
             return 0;
           });
         equal( events.fire('test'), false, '' );
-        equal( events.fire('test2'), true, '' );
+        equal( events.fire('test2'), undefined, '' );
       });
 
     });
