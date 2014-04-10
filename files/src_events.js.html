@@ -224,28 +224,35 @@ Events.prototype = {
    */
   fire: function (event) {
     var cache = this.__events,
-      events,
+      args, events, newArgs,
       list, i, n,
-      returned = true;
+      returned;
 
     if (!(cache &amp;&amp; event)) {
-      return;
+      return returned;
     }
+
+    args = Array.prototype.slice.call(arguments, 1);
 
     events = event.split(EVENT_SPLITTER);
 
     while ((event = events.shift())) {
 
-      list = cache[event];
+      newArgs = [{ type: event }].concat(args);
 
-      if (!list) {
-        continue;
+      if (event !== &#x27;all&#x27;) {
+        list = cache[event];
       }
 
+      if (!list) {
+        list = [];
+      }
+
+      // 加入 all
+      list = list.concat(cache.all || []);
+
       for (i = 0, n = list.length; i &lt; n; i++) {
-        if (list[i].apply(this, arguments) === false) {
-          returned = false;
-        }
+        (list[i].apply(this, newArgs) === false) &amp;&amp; (returned = false);
       }
     }
 
