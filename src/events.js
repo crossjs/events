@@ -31,13 +31,13 @@ Events.prototype = {
    * @example
    * ```
    * events.on('test', function (e, a) {
-   *   // e equals to 'test'
+   *   // e.type === 'test'
    * });
    * events.on('test test2', function (e, a) {
-   *   // e equals to 'test' or 'test2'
+   *   // e.type === 'test' or 'test2'
    * });
    * var testFunc = function (e, a) {
-   *   // e equals to 'test'
+   *   // e.type === 'test'
    * };
    * events.on({
    *   test: testFunc
