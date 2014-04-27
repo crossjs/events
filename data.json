@@ -5,8 +5,8 @@
         "version": "1.0.0"
     },
     "files": {
-        "src\\events.js": {
-            "name": "src\\events.js",
+        "src/events.js": {
+            "name": "src/events.js",
             "modules": {
                 "Events": 1
             },
@@ -27,7 +27,7 @@
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "src\\events.js",
+            "file": "src/events.js",
             "line": 14,
             "description": "事件"
         }
@@ -43,7 +43,7 @@
             "extension_for": [],
             "module": "Events",
             "namespace": "",
-            "file": "src\\events.js",
+            "file": "src/events.js",
             "line": 14,
             "description": "事件类\n实现了事件订阅与发布",
             "example": [
@@ -54,11 +54,11 @@
     },
     "classitems": [
         {
-            "file": "src\\events.js",
+            "file": "src/events.js",
             "line": 29,
             "description": "绑定事件订阅",
             "example": [
-                "\n```\nevents.on('test', function (e, a) {\n  // e equals to 'test'\n});\nevents.on('test test2', function (e, a) {\n  // e equals to 'test' or 'test2'\n});\nvar testFunc = function (e, a) {\n  // e equals to 'test'\n};\nevents.on({\n  test: testFunc\n});\n```"
+                "\n```\nevents.on('test', function (e, a) {\n  // e.type === 'test'\n});\nevents.on('test test2', function (e, a) {\n  // e.type === 'test' or 'test2'\n});\nvar testFunc = function (e, a) {\n  // e.type === 'test'\n};\nevents.on({\n  test: testFunc\n});\n```"
             ],
             "itemtype": "method",
             "name": "on",
@@ -83,7 +83,7 @@
             "module": "Events"
         },
         {
-            "file": "src\\events.js",
+            "file": "src/events.js",
             "line": 73,
             "description": "解除事件订阅",
             "example": [
@@ -112,7 +112,7 @@
             "module": "Events"
         },
         {
-            "file": "src\\events.js",
+            "file": "src/events.js",
             "line": 123,
             "description": "触发绑定的事件，有别名：`emit` 与 `trigger`",
             "example": [

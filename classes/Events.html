@@ -92,7 +92,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="../files/src_events.js.html#l14"><code>src\events.js:14</code></a>
+            Defined in: <a href="../files/src_events.js.html#l14"><code>src&#x2F;events.js:14</code></a>
         </div>
     
 
@@ -148,7 +148,7 @@
             
         
         
-        <a href="../files/src_events.js.html#l14"><code>src\events.js:14</code></a>
+        <a href="../files/src_events.js.html#l14"><code>src&#x2F;events.js:14</code></a>
         
         </p>
 
@@ -286,7 +286,7 @@
             
         
         
-        <a href="../files/src_events.js.html#l123"><code>src\events.js:123</code></a>
+        <a href="../files/src_events.js.html#l123"><code>src&#x2F;events.js:123</code></a>
         
         </p>
 
@@ -410,7 +410,7 @@ events.fire(&#39;test test2&#39;, &#39;blah&#39;);</code></pre>
             
         
         
-        <a href="../files/src_events.js.html#l73"><code>src\events.js:73</code></a>
+        <a href="../files/src_events.js.html#l73"><code>src&#x2F;events.js:73</code></a>
         
         </p>
 
@@ -551,7 +551,7 @@ events.off(&#39;test&#39;, testFunc);</code></pre>
             
         
         
-        <a href="../files/src_events.js.html#l29"><code>src\events.js:29</code></a>
+        <a href="../files/src_events.js.html#l29"><code>src&#x2F;events.js:29</code></a>
         
         </p>
 
@@ -631,13 +631,13 @@ events.off(&#39;test&#39;, testFunc);</code></pre>
 
             <div class="example-content">
                 <pre class="code prettyprint"><code>events.on(&#39;test&#39;, function (e, a) {
-  // e equals to &#39;test&#39;
+  // e.type === &#39;test&#39;
 });
 events.on(&#39;test test2&#39;, function (e, a) {
-  // e equals to &#39;test&#39; or &#39;test2&#39;
+  // e.type === &#39;test&#39; or &#39;test2&#39;
 });
 var testFunc = function (e, a) {
-  // e equals to &#39;test&#39;
+  // e.type === &#39;test&#39;
 };
 events.on({
   test: testFunc
