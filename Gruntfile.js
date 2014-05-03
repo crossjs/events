@@ -1,8 +1,8 @@
 /*
  * events
- * https://github.com/crossjs/events
+ * https://github.com/pandorajs/events
  *
- * Copyright (c) 2014 crossjs
+ * Copyright (c) 2014 pandorajs
  * Licensed under the MIT license.
  */
 
@@ -32,6 +32,7 @@ module.exports = function(grunt) {
       options: {
         '--web-security': 'no',
         coverage: {
+          baseUrl: './',
           src: ['src/*.js'],
           instrumentedFiles: 'temp/',
           lcovReport: 'report/',

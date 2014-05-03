@@ -1,7 +1,7 @@
 #events
 
-[![Build Status](https://api.travis-ci.org/crossjs/events.png?branch=master)](http://travis-ci.org/crossjs/events)
-[![Coverage Status](https://coveralls.io/repos/crossjs/events/badge.png?branch=master)](https://coveralls.io/r/crossjs/events?branch=master)
+[![Build Status](https://api.travis-ci.org/pandorajs/events.png?branch=master)](http://travis-ci.org/pandorajs/events)
+[![Coverage Status](https://coveralls.io/repos/pandorajs/events/badge.png?branch=master)](https://coveralls.io/r/pandorajs/events?branch=master)
 
  > events subscriber and publisher, seajs module
 
@@ -16,6 +16,10 @@
 
 1. run `spm install pandora/events`
 1. write `require('pandora/events/VERSION.NUMBER/events')`
+
+##find examples
+
+1. view the source files in '/src'
 
 ##history
 
