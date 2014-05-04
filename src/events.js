@@ -136,7 +136,7 @@ Events.prototype = {
     var cache = this.__events,
       args, events, newArgs,
       list, i, n,
-      returned;
+      returned = true;
 
     if (!(cache && event)) {
       return returned;
