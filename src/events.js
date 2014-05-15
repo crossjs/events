@@ -134,7 +134,7 @@ Events.prototype = {
    */
   fire: function (event) {
     var cache = this.__events,
-      args, events, newArgs,
+      args, events, newArgs, target,
       list, i, n,
       returned = true;
 
@@ -144,11 +144,15 @@ Events.prototype = {
 
     args = Array.prototype.slice.call(arguments, 1);
 
-    events = event.split(EVENT_SPLITTER);
+    target = event.target || this;
+    events = (event.type || event).split(EVENT_SPLITTER);
 
     while ((event = events.shift())) {
 
-      newArgs = [{ type: event }].concat(args);
+      newArgs = [{
+        type: event,
+        target: target
+       }].concat(args);
 
       if (event !== 'all') {
         list = cache[event];

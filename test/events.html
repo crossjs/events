@@ -49,12 +49,32 @@
         events.fire('test');
       });
 
+      test('e.type', function() {
+        var events = new Events();
+        events.on({
+          'test': function (e) {
+            equal( e.type, 'test', '' );
+          }
+        });
+        events.fire('test');
+      });
+
+      test('e.target', function() {
+        var events = new Events();
+        events.on({
+          'test': function (e) {
+            equal( e.target, events, '' );
+          }
+        });
+        events.fire('test');
+      });
+
       test('arguments', function() {
         var events = new Events();
         events.on({
           'test': function (e) {
-            deepEqual( Array.prototype.slice.call(arguments),
-              [{type: 'test'}, 1, 2, 3], '' );
+            deepEqual( Array.prototype.slice.call(arguments, 1),
+              [1, 2, 3], '' );
           }
         });
         events.fire('test', 1, 2, 3);
