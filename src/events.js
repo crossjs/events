@@ -71,6 +71,21 @@ Events.prototype = {
   },
 
   /**
+   * 仅执行一次的事件订阅
+   * @method once
+   * @param {String} event 事件名
+   * @param {Function} [callback] 回调函数
+   * @return {Object} 当前实例
+   */
+  once: function (event, callback) {
+    var cb = function () {
+      this.off(event, cb);
+      callback.apply(this, arguments);
+    };
+    return this.on(event, cb);
+  },
+
+  /**
    * 解除事件订阅
    * @example
    * ```
