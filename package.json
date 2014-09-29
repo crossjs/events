@@ -47,7 +47,6 @@
   "spm": {
     "output": [ "events.js" ],
     "alias": {
-      "$": "$"
     }
   }
 }

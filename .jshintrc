@@ -30,6 +30,6 @@
   "strict": false,
   "sub": true,
   "undef": true,
-  "unused": false,
+  "unused": "vars",
   "multistr": false
 }
