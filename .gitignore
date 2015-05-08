@@ -4,3 +4,5 @@ gh-pages
 report
 dist
 doc
+_site
+spm_modules
