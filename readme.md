@@ -1,26 +1,45 @@
-#events
+# pandora-events
 
-[![Build Status](https://api.travis-ci.org/pandorajs/events.png?branch=master)](http://travis-ci.org/pandorajs/events)
-[![Coverage Status](https://coveralls.io/repos/pandorajs/events/badge.png?branch=master)](https://coveralls.io/r/pandorajs/events?branch=master)
+---
 
- > events subscriber and publisher, seajs module
+实现了事件订阅与发布
 
-##how to demo
+---
 
-1. checkout
-1. run `npm install`
-1. run `grunt`
-1. view files in `/demo`
 
-##how to use
+## Install
 
-1. run `spm install pandora/events`
-1. write `require('pandora/events/VERSION.NUMBER/events')`
+```
+$ spm install pandora-events --save
+```
 
-##find examples
+## Usage
 
-1. view the source files in '/src'
+```js
+var events = require('pandora-events');
 
-##history
+// 定义事件
+events.on('test', function (e, a) {
+   // e.type === 'test'
+});
+events.on('test test2', function (e, a) {
+ // e.type === 'test' or 'test2'
+});
+var testFunc = function (e, a) {
+ // e.type === 'test'
+};
+events.on({
+ test: testFunc
+});
 
-- 1.0.0 - release
+// 触发事件
+events.fire('test', 'blah');
+events.fire('test2', 'blah');
+events.fire('test test2', 'blah');
+
+// 解除事件
+events.off('test');
+events.off('test test2');
+events.off('test', testFunc);
+
+```
