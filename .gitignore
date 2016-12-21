@@ -6,3 +6,4 @@ dist
 doc
 _site
 spm_modules
+npm-debug.log
