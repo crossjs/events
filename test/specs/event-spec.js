@@ -1,5 +1,4 @@
-var expect = require('expect.js');
-var Events = require('../events');
+var Events = require('../../src');
 
 describe('pandora-events', function() {
 

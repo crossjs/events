@@ -193,4 +193,3 @@ Events.prototype = {
 Events.prototype.emit = Events.prototype.trigger = Events.prototype.fire;
 
 module.exports = Events;
-
